@@ -26,7 +26,8 @@ public class MainActivity extends Activity {
     private CommThread thread;
     private ArcView pressureArcView;
     private TextView pressureValue;
-
+    private ArcView temperatureArcView;
+    private TextView temperatureValue;
     private ProgressDialog dialog;
 
     /** Called when the activity is first created. */
@@ -36,6 +37,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         pressureArcView = (ArcView)findViewById(R.id.pressure_arc_view);
         pressureValue = (TextView)findViewById(R.id.pressure_value);
+        temperatureArcView = (ArcView)findViewById(R.id.temperature_arc_view);
+        temperatureValue = (TextView)findViewById(R.id.temperature_value);
 
         handler = new Handler() {
             @SuppressWarnings("unchecked")
@@ -44,9 +47,14 @@ public class MainActivity extends Activity {
                 super.handleMessage(msg);
                 HashMap<String, Double> result = (HashMap<String,Double>)msg.obj;
 
+                // TODO(dek): subclasses of ArcView with different conversions
                 if (result.containsKey("pressure")) {
                     pressureArcView.setValue(result.get("pressure"));
                     pressureValue.setText(result.get("pressure").toString());
+                }
+                if (result.containsKey("temperature")) {
+                    temperatureArcView.setValue(result.get("temperature"));
+                    temperatureValue.setText(result.get("temperature").toString());
                 }
             }
         };
