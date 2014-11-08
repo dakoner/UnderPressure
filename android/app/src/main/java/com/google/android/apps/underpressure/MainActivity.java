@@ -23,6 +23,7 @@ import android.widget.ScrollView;
 public class MainActivity extends Activity {
     private Handler handler;
     private CommThread thread;
+    private ArcView arcView;
     private DataExtractor dataExtractor = new DataExtractor();
     private ProgressDialog dialog;
 
@@ -31,6 +32,7 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        arcView = (ArcView)findViewById(R.id.arc_view);
 
         handler = new Handler() {
             @SuppressWarnings("unchecked")
@@ -44,6 +46,9 @@ public class MainActivity extends Activity {
                     TextView tv = (TextView) findViewById(R.id.console_text);
                     tv.append(result);
                     ((ScrollView) findViewById(R.id.console_scrollview)).scrollTo(0, tv.getHeight());
+                    // How to get value from ProcessLine?
+                        // shouyld we just pass the text view into the data extractor?
+                    arcView.setValue(1050.);
                 }
 
 
