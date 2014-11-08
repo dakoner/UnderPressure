@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import android.app.Activity;
@@ -23,8 +24,9 @@ import android.widget.ScrollView;
 public class MainActivity extends Activity {
     private Handler handler;
     private CommThread thread;
-    private ArcView arcView;
-    private DataExtractor dataExtractor = new DataExtractor();
+    private ArcView pressureArcView;
+    private TextView pressureValue;
+
     private ProgressDialog dialog;
 
     /** Called when the activity is first created. */
@@ -32,27 +34,20 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        arcView = (ArcView)findViewById(R.id.arc_view);
+        pressureArcView = (ArcView)findViewById(R.id.pressure_arc_view);
+        pressureValue = (TextView)findViewById(R.id.pressure_value);
 
         handler = new Handler() {
             @SuppressWarnings("unchecked")
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                String line = (String)msg.obj;
-                String result = dataExtractor.ProcessLine(line);
+                HashMap<String, Double> result = (HashMap<String,Double>)msg.obj;
 
-                if (result != "") {
-                    TextView tv = (TextView) findViewById(R.id.console_text);
-                    tv.append(result);
-                    ((ScrollView) findViewById(R.id.console_scrollview)).scrollTo(0, tv.getHeight());
-                    // How to get value from ProcessLine?
-                        // shouyld we just pass the text view into the data extractor?
-                    arcView.setValue(1050.);
+                if (result.containsKey("pressure")) {
+                    pressureArcView.setValue(result.get("pressure"));
+                    pressureValue.setText(result.get("pressure").toString());
                 }
-
-
-
             }
         };
     }

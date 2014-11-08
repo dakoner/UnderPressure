@@ -39,11 +39,12 @@ class CommThread extends Thread {
     private Handler handler;
     private ProgressDialog dialog;
     private BluetoothAdapter adapter;
+    private DataExtractor dataExtractor;
 
     public CommThread(BluetoothAdapter adapter, ProgressDialog dialog, Handler handler) {
-        this.handler = handler;
         this.dialog = dialog;
         this.adapter = adapter;
+        dataExtractor = new DataExtractor(handler);
     }
 
     public void run() {
@@ -90,9 +91,7 @@ class CommThread extends Thread {
         while (true) {
             try {
                 String line=buffer.readLine();
-                // Read from the InputStream
-                handler.obtainMessage(0x2a, line).sendToTarget();
-
+                dataExtractor.ProcessLine(line);
             } catch (IOException e) {
                 break;
             }

@@ -1,11 +1,17 @@
 package com.google.android.apps.underpressure;
 
+import android.os.Handler;
+
+import java.util.HashMap;
+
 public class DataExtractor {
     private boolean complete_record = false;
     private double pressure = 0.;
     private double temperature = 0.;
+    private Handler handler;
 
-    public DataExtractor() {
+    public DataExtractor(Handler handler) {
+        this.handler = handler;
     }
 
     public String ProcessLine(String line) {
@@ -20,7 +26,10 @@ public class DataExtractor {
         }
         else if (line.equals("")) {
             if (pressure != 0. && temperature != 0.) {
-                result = "p="  + pressure + " t=" + temperature + "\n";
+                HashMap<String, Double> hm = new HashMap<String, Double>();
+                hm.put("pressure", pressure);
+                hm.put("temperature", temperature);
+                handler.obtainMessage(0x2a, hm).sendToTarget();
             }
             pressure = 0; temperature = 0;
 

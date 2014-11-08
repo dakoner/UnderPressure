@@ -8,32 +8,22 @@
 
 
     <com.google.android.apps.underpressure.ArcView
-        android:id="@+id/arc_view"
+        android:id="@+id/pressure_arc_view"
         android:layout_width="match_parent"
         android:layout_height="55dp"/>
     <TextView
-        android:id="@+id/pressure_value"
-        android:layout_below="@+id/arc_view"
-
+        android:id="@+id/pressure_label"
+        android:layout_below="@+id/pressure_arc_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pressure: "
         android:textSize="20sp"/>
-
-    <ScrollView
-        android:id="@+id/console_scrollview"
-        android:layout_below="@+id/pressure_value"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/console_text"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:text=""
-            android:textSize="20sp"/>
-
-    </ScrollView>
-
+    <TextView
+        android:id="@+id/pressure_value"
+        android:layout_toRightOf="@+id/pressure_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="20sp"/>
 
 </RelativeLayout>
