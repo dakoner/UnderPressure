@@ -23,6 +23,7 @@ import android.widget.ScrollView;
 public class MainActivity extends Activity {
     private Handler handler;
     private CommThread thread;
+    private DataExtractor dataExtractor = new DataExtractor();
     private ProgressDialog dialog;
 
     /** Called when the activity is first created. */
@@ -30,17 +31,21 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         handler = new Handler() {
             @SuppressWarnings("unchecked")
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                String value = (String)msg.obj;
+                String line = (String)msg.obj;
+                String result = dataExtractor.ProcessLine(line);
 
-                TextView tv = (TextView) findViewById(R.id.console_text);
-                tv.append(value);
-                tv.append("\n");
-                ((ScrollView)findViewById(R.id.console_scrollview)).scrollTo(0, tv.getHeight());
+                if (result != "") {
+                    TextView tv = (TextView) findViewById(R.id.console_text);
+                    tv.append(result);
+                    ((ScrollView) findViewById(R.id.console_scrollview)).scrollTo(0, tv.getHeight());
+                }
+
 
 
             }
