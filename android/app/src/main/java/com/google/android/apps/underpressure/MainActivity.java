@@ -1,4 +1,4 @@
-package com.google.apps.android.underpressure;
+package com.google.android.apps.underpressure;
 
 import android.app.Activity;
 import android.os.Bundle;

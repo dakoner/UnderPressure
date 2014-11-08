@@ -14,7 +14,7 @@
  * limitations under the License
  */
 
-package com.google.apps.android.underpressure;
+package com.google.android.apps.underpressure;
 
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;

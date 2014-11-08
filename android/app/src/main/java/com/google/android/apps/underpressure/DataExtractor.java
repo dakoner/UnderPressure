@@ -1,4 +1,4 @@
-package com.google.apps.android.underpressure;
+package com.google.android.apps.underpressure;
 
 public class DataExtractor {
     private boolean complete_record = false;

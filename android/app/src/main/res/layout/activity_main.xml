@@ -18,5 +18,10 @@
             android:textSize="20sp"/>
 
     </ScrollView>
+    <com.google.android.apps.underpressure.ArcView
+        android:id="@+id/arc_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 
 </RelativeLayout>
