@@ -9,18 +9,20 @@ import android.view.View;
 
 public class ArcView extends View {
     private Paint mPaint = new Paint(0);
-    private float mStartAngle = 0;
-    private float mSweepAngle = 0;
+    protected float mStartAngle = 0;
+    protected float mSweepAngle = 0;
 
     public ArcView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mPaint.setColor(0xff101010);
     }
 
+    protected void convertValue(double value) {
+        mSweepAngle = (float) value;
+    }
+
     public void setValue(double value) {
-        if (value < 980.) value = 980.;
-        if (value > 1050.) value = 1050.;
-        mSweepAngle = (float) ((value - 980.) / (1050.-980.) * 360.);
+        convertValue(value);
         invalidate();
         requestLayout();
     }

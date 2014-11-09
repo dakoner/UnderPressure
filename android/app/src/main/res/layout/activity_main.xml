@@ -7,7 +7,7 @@
 
 
 
-    <com.google.android.apps.underpressure.ArcView
+    <com.google.android.apps.underpressure.PressureArcView
         android:id="@+id/pressure_arc_view"
         android:layout_width="wrap_content"
         android:layout_height="55dp"/>
@@ -27,7 +27,7 @@
         android:text="X"
         android:textSize="20sp"/>
 
-    <com.google.android.apps.underpressure.ArcView
+    <com.google.android.apps.underpressure.TemperatureArcView
         android:layout_below="@+id/pressure_label"
         android:id="@+id/temperature_arc_view"
         android:layout_width="wrap_content"
