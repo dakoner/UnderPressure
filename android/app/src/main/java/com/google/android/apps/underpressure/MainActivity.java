@@ -2,6 +2,7 @@ package com.google.android.apps.underpressure;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -23,7 +24,7 @@ import android.widget.ScrollView;
 
 public class MainActivity extends Activity {
     private Handler handler;
-    private FakeCommThread thread;
+    private CommThread thread;
     private ArcView pressureArcView;
     private TextView pressureValue;
     private ArcView temperatureArcView;
@@ -61,10 +62,10 @@ public class MainActivity extends Activity {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
         dialog = ProgressDialog.show(this, "Connecting", "Searching for a Bluetooth serial port...");
-        thread = new FakeCommThread(BluetoothAdapter.getDefaultAdapter(), dialog, handler);
+        thread = new CommThread(BluetoothAdapter.getDefaultAdapter(), dialog, handler);
         thread.start();
     }
 
