@@ -23,7 +23,7 @@ import android.widget.ScrollView;
 
 public class MainActivity extends Activity {
     private Handler handler;
-    private CommThread thread;
+    private FakeCommThread thread;
     private ArcView pressureArcView;
     private TextView pressureValue;
     private ArcView temperatureArcView;
@@ -64,7 +64,7 @@ public class MainActivity extends Activity {
     public void onStart() {
         super.onStart();
         dialog = ProgressDialog.show(this, "Connecting", "Searching for a Bluetooth serial port...");
-        thread = new CommThread(BluetoothAdapter.getDefaultAdapter(), dialog, handler);
+        thread = new FakeCommThread(BluetoothAdapter.getDefaultAdapter(), dialog, handler);
         thread.start();
     }
 
