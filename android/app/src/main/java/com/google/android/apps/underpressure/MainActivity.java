@@ -6,7 +6,10 @@ import android.os.PersistableBundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 import android.app.Activity;
@@ -24,10 +27,11 @@ import android.widget.ScrollView;
 
 public class MainActivity extends Activity {
     private Handler handler;
-    private CommThread thread;
+    private FakeCommThread thread;
     private ArcView pressureArcView;
     private TextView pressureValue;
     private ArcView temperatureArcView;
+    private LineView temperatureLineView;
     private TextView temperatureValue;
     private ProgressDialog dialog;
 
@@ -39,14 +43,23 @@ public class MainActivity extends Activity {
         pressureArcView = (ArcView)findViewById(R.id.pressure_arc_view);
         pressureValue = (TextView)findViewById(R.id.pressure_value);
         temperatureArcView = (ArcView)findViewById(R.id.temperature_arc_view);
+        temperatureLineView = (LineView)findViewById(R.id.temperature_line_view);
         temperatureValue = (TextView)findViewById(R.id.temperature_value);
+        /*final List<Float> datapoints = new ArrayList<Float>();*/
+        float[] dp = new float[5];
+        dp[0] = 1;
+        dp[1] = 2;
+        dp[2] = 3;
+        dp[3] = 4;
+        temperatureLineView.setChartData(dp);
+
 
         handler = new Handler() {
             @SuppressWarnings("unchecked")
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                HashMap<String, Double> result = (HashMap<String,Double>)msg.obj;
+                HashMap<String, Float> result = (HashMap<String,Float>)msg.obj;
 
                 // TODO(dek): subclasses of ArcView with different conversions
                 if (result.containsKey("pressure")) {
@@ -56,6 +69,15 @@ public class MainActivity extends Activity {
                 if (result.containsKey("temperature")) {
                     temperatureArcView.setValue(result.get("temperature"));
                     temperatureValue.setText(result.get("temperature").toString());
+                    /*datapoints.add(result.get("temperature"));
+                    float[] dp = new float[datapoints.size()];
+                    int i = 0;
+                    for (ListIterator<Float> it = datapoints.listIterator(); it.hasNext(); ) {
+                        Float t = it.next();
+                        dp[i] = t;
+                        i++;
+                    }
+                    temperatureLineView.setChartData(dp);*/
                 }
             }
         };
@@ -65,7 +87,7 @@ public class MainActivity extends Activity {
     public void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         dialog = ProgressDialog.show(this, "Connecting", "Searching for a Bluetooth serial port...");
-        thread = new CommThread(BluetoothAdapter.getDefaultAdapter(), dialog, handler);
+        thread = new FakeCommThread(BluetoothAdapter.getDefaultAdapter(), dialog, handler);
         thread.start();
     }
 
