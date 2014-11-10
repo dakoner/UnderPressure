@@ -34,6 +34,7 @@ public class MainActivity extends Activity {
     private LineView temperatureLineView;
     private TextView temperatureValue;
     private ProgressDialog dialog;
+    private PressureSensorEventListener psel;
 
     /** Called when the activity is first created. */
     @Override
@@ -43,15 +44,17 @@ public class MainActivity extends Activity {
         pressureArcView = (ArcView)findViewById(R.id.pressure_arc_view);
         pressureValue = (TextView)findViewById(R.id.pressure_value);
         temperatureArcView = (ArcView)findViewById(R.id.temperature_arc_view);
-        temperatureLineView = (LineView)findViewById(R.id.temperature_line_view);
+        /*temperatureLineView = (LineView)findViewById(R.id.temperature_line_view);*/
         temperatureValue = (TextView)findViewById(R.id.temperature_value);
+        psel = new PressureSensorEventListener(this.getApplicationContext());
+
         /*final List<Float> datapoints = new ArrayList<Float>();*/
-        float[] dp = new float[5];
+        /*float[] dp = new float[5];
         dp[0] = 1;
         dp[1] = 2;
         dp[2] = 3;
         dp[3] = 4;
-        temperatureLineView.setChartData(dp);
+        temperatureLineView.setChartData(dp);*/
 
 
         handler = new Handler() {

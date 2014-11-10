@@ -32,24 +32,24 @@
         android:id="@+id/temperature_arc_view"
         android:layout_width="wrap_content"
         android:layout_height="55dp"/>
-
+<!--
     <com.google.android.apps.underpressure.LineView
         android:layout_below="@+id/temperature_arc_view"
         android:id="@+id/temperature_line_view"
         android:layout_width="wrap_content"
         android:layout_height="55dp"/>
-
+-->
 
     <TextView
         android:id="@+id/temperature_label"
-        android:layout_below="@+id/temperature_line_view"
+        android:layout_below="@+id/temperature_arc_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Temperature: "
         android:textSize="20sp"/>
     <TextView
         android:id="@+id/temperature_value"
-        android:layout_below="@+id/temperature_line_view"
+        android:layout_below="@+id/temperature_arc_view"
         android:layout_toRightOf="@+id/temperature_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
