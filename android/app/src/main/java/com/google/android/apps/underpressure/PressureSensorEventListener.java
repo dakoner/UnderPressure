@@ -17,6 +17,9 @@ public class PressureSensorEventListener implements SensorEventListener {
     PressureSensorEventListener(Context context) {
         mSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         mPressure = mSensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
+        mSensorManager.registerListener(this,
+                mPressure,
+                SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
